@@ -1,20 +1,29 @@
-测试将本地仓库推送到GitHub上的空仓库，这里我先将两个仓库的名字设置成一样：learngit
+# 测试将本地仓库推送到GitHub上的空仓库
 
-这里出现了两个问题，先简单记录：
-1.执行“git push -u origin main”时出现“remote: Permission to zhayanjianfa/learngit.git denied to jackking2015.”的错误
+这里我先将本地仓库的名字设置成和github上创建的仓库名一样：learngit
+
+这里碰到了几个问题，先简单记录：
+1.执行“git push -u origin main”时出现错误：
+
+> remote: Permission to zhayanjianfa/learngit.git denied to jackking2015.
+
 这里我参考网上的解决方法，删除Windows凭据里有关github的所有账号。
 2.解决上面问题后，继续执行上面的操作，仍然报错：
-fatal: 发送请求时出错。
-fatal: 无法连接到远程服务器
-fatal: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。 20.205.243.166:443
-zerror: unable to read askpass response from 'C:/Program Files (x86)/Git/mingw32/bin/git-askpass.exe'
-Username for 'https://github.com': zhayanjianfa
-remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
-remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
-fatal: Authentication failed for 'https://github.com/zhayanjianfa/learngit.git/'
-这里我猜测是网络的原因，所以用上了v2ary，后面运行正常。
+
+> fatal: 发送请求时出错。
+> fatal: 无法连接到远程服务器
+> fatal: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。 20.205.243.166:443
+> zerror: unable to read askpass response from 'C:/Program Files (x86)/Git/mingw32/bin/git-askpass.exe'
+> Username for 'https://github.com': zhayanjianfa
+> remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+> remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+> fatal: Authentication failed for 'https://github.com/zhayanjianfa/learngit.git/'
+
+​	这里我猜测是网络的原因，所以用上了v2ary，后面运行正常。
 
 3.还有一个疑惑的地方就是，这里最开始设置的全局用户名和邮箱，根据《github入门与实践》提醒是在提交代码时会附带上的，所以我猜测可能只是一个昵称。
 然后后续在执行“ssh-keygen -t rsa -C "yourmail@example.com"”里的邮箱却要设置成和github上一样，我开始猜测是不是一种证明是同一用户的含义？？？所以后面要输入密码时，我就输入了github的密码。后来我越想越糊涂，觉得不一定是，因为我执行"git push -u origin main"时，要求我输入github密码，并确认与我本地互通，所以我猜测本地输入的密码只是一个本地的账户？？？
 
 4.还有我本地的仓库名一定要和github上准备推送的仓库门一致吗？64位的git和32位git的设置选项好像有些不同，如果本地的主线是master，推送上去会是什么样？git push -u origin main究竟是什么意思？为什么推送到空项目时，github没有收到pull request消息？是因为账号一致吗？还是因为不同操作？
+
+5.我最后发现github上显示推送的账户竟然是jackking2015，我猜测还是因为我前面设置全局邮箱有关，尽管我设置的用户名是bender，但它可能还是采用了邮箱注册的github用户名。这个需要进一步验证。
